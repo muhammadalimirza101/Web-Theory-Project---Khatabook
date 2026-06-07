@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Khata Book</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Simple Khata Book</h1>
+
+    <div class="summary">
+      <div>
+        <h3>Total Income</h3>
+        <p id="totalIncome">0</p>
+      </div>
+
+      <div>
+        <h3>Total Expense</h3>
+        <p id="totalExpense">0</p>
+      </div>
+
+      <div>
+        <h3>Balance</h3>
+        <p id="balance">0</p>
+      </div>
+    </div>
+
+    <div class="form-box">
+      <h2>Add Record</h2>
+
+      <input type="text" id="title" placeholder="Enter title">
+
+      <input type="number" id="amount" placeholder="Enter amount">
+
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+
+      <button onclick="addTransaction()">Add Record</button>
+    </div>
+
+    <div class="records">
+      <h2>All Records</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Type</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+
+        <tbody id="transactionList">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
