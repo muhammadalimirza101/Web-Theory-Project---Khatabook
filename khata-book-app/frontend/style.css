@@ -86,3 +86,12 @@ th, td {
   border: none;
   cursor: pointer;
 }
+
+.edit-btn {
+  background-color: green;
+  color: white;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}

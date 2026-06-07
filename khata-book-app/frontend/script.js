@@ -1,5 +1,7 @@
 const API_URL = "http://localhost:5001/transactions";
 
+let editingId = null;
+
 async function getTransactions() {
   const response = await fetch(API_URL);
   const transactions = await response.json();
@@ -25,15 +27,27 @@ async function addTransaction() {
   };
 
   try {
-    const response = await fetch(API_URL, {
+  let response;
+
+  if (editingId === null) {
+    response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(transaction)
     });
+  } else {
+    response = await fetch(`${API_URL}/${editingId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(transaction)
+    });
+  }
 
-    const data = await response.json();
+  const data = await response.json();
 
     console.log("Saved data:", data);
 
@@ -43,10 +57,13 @@ async function addTransaction() {
     }
 
     document.getElementById("title").value = "";
-    document.getElementById("amount").value = "";
-    document.getElementById("type").value = "income";
+document.getElementById("amount").value = "";
+document.getElementById("type").value = "income";
 
-    getTransactions();
+editingId = null;
+document.querySelector("button").innerText = "Add Record";
+
+getTransactions();
 
   } catch (error) {
     console.log("Frontend error:", error);
@@ -67,6 +84,9 @@ function showTransactions(transactions) {
       <td>${transaction.amount}</td>
       <td class="${transaction.type}">${transaction.type}</td>
       <td>
+        <button class="edit-btn" onclick="editTransaction('${transaction._id}', '${transaction.title}', ${transaction.amount}, '${transaction.type}')">
+          Edit
+        </button>
         <button class="delete-btn" onclick="deleteTransaction('${transaction._id}')">
           Delete
         </button>
@@ -105,3 +125,13 @@ async function deleteTransaction(id) {
 }
 
 getTransactions();
+
+function editTransaction(id, title, amount, type) {
+  document.getElementById("title").value = title;
+  document.getElementById("amount").value = amount;
+  document.getElementById("type").value = type;
+
+  editingId = id;
+
+  document.querySelector("button").innerText = "Update Record";
+}

@@ -83,6 +83,34 @@ app.delete("/transactions/:id", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
+app.put("/transactions/:id", async (req, res) => {
+  try {
+    const { title, amount, type } = req.body;
+
+    const updatedTransaction = await Transaction.findByIdAndUpdate(
+      req.params.id,
+      {
+        title,
+        amount,
+        type
+      },
+      {
+        new: true
+      }
+    );
+
+    res.json({
+      message: "Transaction updated successfully",
+      transaction: updatedTransaction
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error updating transaction",
+      error: error.message
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
