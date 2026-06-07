@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5001/transactions";
+const API_URL = "https://web-theory-project-khatabook.onrender.com/transactions";
 
 let editingId = null;
 
